@@ -1,5 +1,8 @@
-DROP DATABASE property_db;
 CREATE DATABASE property_db;
+
+DROP TABLE IF EXISTS real_estate_agents;
+DROP TABLE IF EXISTS clients;
+DROP TABLE IF EXISTS properties;
 
 CREATE TABLE real_estate_agents(
   agent_id SERIAL PRIMARY KEY,
@@ -19,7 +22,7 @@ CREATE TABLE clients(
   budget INTEGER
 );
 
-CREATE TABLE properties_id(
+CREATE TABLE properties(
   property_id SERIAL PRIMARY KEY,
   property_address VARCHAR(100) NOT NULL,
   postcode INTEGER NOT NULL,
@@ -27,7 +30,9 @@ CREATE TABLE properties_id(
   rooms VARCHAR(100) NOT NULL,
   size_sqm INTEGER NOT NULL,
   asking_price INTEGER NOT NULL,
-  sale_price INTEGER
+  sale_price INTEGER,
+  agent_id INTEGER NOT NULL,
+  FOREIGN KEY (agent_id) REFERENCES clients(agent_id) ON DELETE CASCADE
 );
 
 
